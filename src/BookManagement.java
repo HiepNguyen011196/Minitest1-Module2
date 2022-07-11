@@ -1,68 +1,54 @@
-import java.util.Objects;
 
-public class BookManagement extends Book {
+public class BookManagement {
+
+
     public static void main(String[] args) {
-        ProgrammingBook book1 = new ProgrammingBook();
-        book1.setLanguage("Java");
-        book1.setFramework("frame1");
-        book1.setPrice(100000);
-        ProgrammingBook book2 = new ProgrammingBook();
-        book2.setLanguage("Normal");
-        book2.setFramework("frame2");
-        book2.setPrice(150000);
-        ProgrammingBook book3 = new ProgrammingBook();
-        book3.setLanguage("Normal");
-        book3.setFramework("frame1");
-        book3.setPrice(200000);
-        ProgrammingBook book4 = new ProgrammingBook();
-        book4.setLanguage("Java");
-        book4.setFramework("frame1");
-        book4.setPrice(100000);
-        ProgrammingBook book5 = new ProgrammingBook();
-        book5.setLanguage("Java");
-        book5.setFramework("frame2");
-        book5.setPrice(150000);
+        Book [] book = new Book[10];
+        book[0] = new ProgrammingBook("java", "frameAA", 100);
+        book[1] = new ProgrammingBook("javascript", "frameBB", 50);
+        book[2] = new ProgrammingBook("javascript", "frameBB", 80);
+        book[3] = new ProgrammingBook("java", "frameAA", 200);
+        book[4] = new ProgrammingBook("java", "javaAA", 150);
+        book[5] = new FictionBook("fiction1", 180);
+        book[6] = new FictionBook("fiction2", 300);
+        book[7] = new FictionBook("fiction3", 98);
+        book[8] = new FictionBook("fiction2", 50);
+        book[9] = new FictionBook("fiction1",79);
 
-        FictionBook book6 = new FictionBook("Fiction1");
-        book6.setPrice(100000);
-        FictionBook book7 = new FictionBook("Fiction2");
-        book7.setPrice(150000);
-        FictionBook book8 = new FictionBook("Fiction1");
-        book8.setPrice(300000);
-        FictionBook book9 = new FictionBook("Fiction1");
-        book9.setPrice(500000);
-        FictionBook book10 = new FictionBook("Fiction3");
-        book10.setPrice(50000);
+        int sum = totalPrice(book);
+        System.out.println("Total price is: " + sum);
+        int checkJava = checkJava(book);
+        System.out.println(checkJava + " java books");
+        int checkFiction1 = checkFiction1(book);
+        System.out.println(checkFiction1 + " fictions1 books");
+    }
+    public static int totalPrice(Book []book) {
+        int sum = 0;
+        for (int i = 0; i < book.length; i++) {
+            sum += book[i].getPrice();
+        }
+        return sum;
+    }
 
-        double totalPrice = book1.getPrice() + book2.getPrice() + book3.getPrice() + book4.getPrice() + book5.getPrice()
-                + book6.getPrice() + book7.getPrice() + book8.getPrice() + book9.getPrice() + book10.getPrice();
-        System.out.println("Total price is: " + totalPrice);
-
-        String[] javaLanguague = {book1.getLanguage(), book2.getLanguage(), book3.getLanguage(), book4.getLanguage(), book5.getLanguage()};
-        int count = 0;
-        for (String s : javaLanguague) {
-            if (Objects.equals(s, "Java")) {
-                count++;
+    public static int checkJava(Book []book) {
+        int countJava = 0;
+        for (int i = 0; i < book.length; i++) {
+            if (book[i] instanceof ProgrammingBook) {
+                String language = ((ProgrammingBook) book[i]).getLanguage();
+                if (language.equals("java")) countJava++;
             }
         }
-        System.out.println(count + " Java books");
+        return countJava;
+    }
 
-        String[] fictionCategory = {book6.getCategory(), book7.getCategory(), book8.getCategory(), book9.getCategory(), book10.getCategory()};
-        int count1 = 0;
-        for (String k : fictionCategory) {
-            if (Objects.equals(k, "Fiction1")) {
-                count1++;
+    public static int checkFiction1(Book []book) {
+        int countFiction1 = 0;
+        for (int i = 0; i < book.length; i++) {
+            if (book[i] instanceof FictionBook) {
+                String category =((FictionBook) book[i]).getCategory();
+                if (category.equals("fiction1")) countFiction1++;
             }
         }
-        System.out.println(count1 + " Fiction1 books");
-
-        double[] lowPrice = {book6.getPrice(), book7.getPrice(), book8.getPrice(), book9.getPrice(), book10.getPrice()};
-        int count2 = 0;
-        for (double v : lowPrice) {
-            if (v <= 100000) {
-                count2++;
-            }
-        }
-        System.out.println(count2 + " books with price lower or equal to 100000");
+        return countFiction1;
     }
 }

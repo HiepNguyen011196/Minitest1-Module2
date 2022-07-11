@@ -1,8 +1,11 @@
 public class FictionBook extends Book{
     String category;
 
-    public FictionBook(String category) {
+    public FictionBook(){
+    }
+    public FictionBook(String category, int price) {
         this.category = category;
+        this.price = price;
     }
 
     public String getCategory() {
